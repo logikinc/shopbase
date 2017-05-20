@@ -9,6 +9,14 @@
     <title>Shopbase</title>
 </head>
 <body>
-    @yield('content')
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

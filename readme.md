@@ -1,4 +1,4 @@
-## Shopbase ##
+# Shopbase #
 
 A Laravel based Shopify Rest API wrapper for Rapid Development and Prototyping
 
