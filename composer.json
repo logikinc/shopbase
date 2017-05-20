@@ -13,5 +13,8 @@
     "psr-4": {
       "Anurag\\": "src/"
     }
+  },
+  "require": {
+    "mashape/unirest-php": "3.*"
   }
 }

@@ -3,9 +3,11 @@
 namespace Anurag\Controllers;
 
 use Config;
+use Session;
 use Anurag\Models\Store;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Unirest\Request as Unirest;
+use App\Http\Controllers\Controller;
 
 class ShopbaseController extends Controller
 {
@@ -17,6 +19,8 @@ class ShopbaseController extends Controller
 
     public function __construct()
     {
+        $this->middleware('web');
+
         $config = (object) Config::get('shopbase');
         $this->key = $config->key;
         $this->secret = $config->secret;
@@ -43,12 +47,78 @@ class ShopbaseController extends Controller
 
     public function Initialize(Request $request)
     {
-        dd($request);
+        $url = "https://$request->shop/admin/oauth/access_token";
+
+        $data = array(
+            'client_id' => $this->key,
+            'client_secret' => $this->secret,
+            'code' => $request->code
+            );
+
+        $response = $this->APIRequest('post',$url,$data,'install');
+
+        Session::put('storename',$request->shop);
+        Session::put('accessToken',$response->body->access_token);
+
+        $store = Store::where('storename',$request->shop)->count();
+        if($store == 0){
+            $store = new Store;
+            $store->storename = $request->shop;
+            $store->accessToken = $response->body->access_token;
+            $store->save();
+        }
+
+        return redirect('/shopbase/dashboard');
     }
 
-    public function Dashboard()
+    public function FetchDetails(Request $request)
+    {
+        $store = Store::where('storename',$request->shop)->first();
+
+        Session::put('storename',$store->storename);
+        Session::put('accessToken',$store->accessToken);
+
+        return redirect('/shopbase/dashboard');
+    }
+
+    public function Dashboard(Request $request)
     {
 
+        $storename = Session::get('storename');
+        echo $url = "https://$storename/admin/orders.json";
+        $response = $this->APIRequest('get',$url);
+        dd($response);
+    }
+
+    public function APIRequest($requestType,$requestUrl,$requestData='',$requestHeader='')
+    {
+        $requestHeader = $header = $this->HeaderSelector($requestHeader);
+        $requestOptions = Unirest::verifyPeer(false);
+
+        if($requestType == 'get'){
+            $response = Unirest::get($requestUrl,$requestHeader,$requestData);
+        } elseif($requestType == 'post'){
+            $response = Unirest::post($requestUrl,$requestHeader,$requestData);
+        } elseif($requestType == 'put'){
+            $response = Unirest::put($requestUrl,$requestHeader,$requestData);
+        } elseif($requestType == 'delete'){
+            $response = Unirest::delete($requestUrl,$requestHeader,$requestData);
+        }
+
+        return $response;
+    }
+
+    public function HeaderSelector($criteria)
+    {
+        if($criteria == 'install'){
+            return array(
+                'Accept' => 'application/json'
+            );
+        } else {
+            return array(
+                'X-Shopify-Access-Token' => Session::get('accessToken')
+            );
+        }
     }
 
 }

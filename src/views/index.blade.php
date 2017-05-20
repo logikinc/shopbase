@@ -4,6 +4,7 @@
 
 <div class="col-sm-offset-3 col-sm-6">
     <form method="POST">
+        {{ csrf_field() }}
         <h1 class="text-center">Shopbase App Installer</h1>
         <p class="text-center">Please just add the storename in the input box below. <br> e.g <b>"mystore"</b> if your complete <b>Store Url</b> is <b>"https://mystore.myshopify.com"</b> </p>
         <div class="form-group">
