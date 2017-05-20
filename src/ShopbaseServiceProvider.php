@@ -14,7 +14,7 @@ class ShopbaseServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load Routes From
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/ShopbaseRoutes.php');
         // Load Migration From
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         // Load Views From
@@ -28,6 +28,8 @@ class ShopbaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->publishes([
+             __DIR__.'/ShopbaseConfig.php' => config_path('shopbase.php'),
+        ],'shopbase');
     }
 }
