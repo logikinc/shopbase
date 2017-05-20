@@ -19,7 +19,7 @@ Anurag\ShopbaseServiceProvider::class,
 - Open Terminal and run, to publish the shopbase.php to the Config/shopbase.php
 
 ```bash
-php artisan vendor:publish --tag=config
+php artisan vendor:publish --tag=config --force
 ```
 
 - Now run the migrations using
@@ -35,11 +35,11 @@ php artisan migrate
 - Now Browse to the Laravel Project and Open
 
 ```url
-http://yourproject.com/shopbaseInit
+http://yourproject.com/shopbase/install
 
 or
 
-https://yourproject.com/shopbaseInit
+https://yourproject.com/shopbase/install
 ```
 
 - Now you will be prompted to add the name of your store. Add the name without the preceding http:// or https://
