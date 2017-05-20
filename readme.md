@@ -22,6 +22,14 @@ Anurag\ShopbaseServiceProvider::class,
 php artisan vendor:publish --tag=shopbase
 ```
 
+- Now run the migrations using
+
+```
+php artisan migrate
+```
+
+- This will add a new table stores in the database that is needed by the package to complete the app installation procedure.
+
 - Now you can add your API Key, API Secret, Scopes and Redirect Url in the config file.
 
 - Now Browse to the Laravel Project and Open
