@@ -1,0 +1,17 @@
+{
+  "name": "anurag/shopbase",
+  "type": "library",
+  "description": "A simple API Wrapper for Shopify Apps.",
+  "authors": [
+    {
+      "name": "Anurag Makol",
+      "email": "anurag.makol@outlook.com"
+    }
+  ],
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "Anurag\\": "src/"
+    }
+  }
+}
