@@ -1,5 +1,3 @@
 <?php
 
-Route::get('/shopbaseInit',function(){
-    return view('shopbase::init');
-});
+Route::get('/shopbaseInit','Anurag\Controllers\InitController@Index');

@@ -18,7 +18,7 @@ class ShopbaseServiceProvider extends ServiceProvider
         // Load Migration From
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         // Load Views From
-        $this->loadViewsFrom(__DIR__.'/views','shopbase');
+        $this->loadViewsFrom(__DIR__.'/views','Shopbase');
     }
 
     /**
