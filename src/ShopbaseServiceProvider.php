@@ -30,6 +30,10 @@ class ShopbaseServiceProvider extends ServiceProvider
     {
         $this->publishes([
              __DIR__.'/ShopbaseConfig.php' => config_path('shopbase.php'),
-        ],'shopbase');
+        ],'config');
+
+        $this->publishes([
+            __DIR__.'/assets' => public_path('/shopbase'),
+        ],'assets');
     }
 }

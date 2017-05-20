@@ -19,7 +19,7 @@ Anurag\ShopbaseServiceProvider::class,
 - Open Terminal and run, to publish the shopbase.php to the Config/shopbase.php
 
 ```bash
-php artisan vendor:publish --tag=shopbase
+php artisan vendor:publish --tag=config
 ```
 
 - Now run the migrations using

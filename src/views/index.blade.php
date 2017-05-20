@@ -2,6 +2,12 @@
 
 @section('content')
 
-This is
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            Inside a Container
+        </div>
+    </div>
+</div>
 
 @endsection
