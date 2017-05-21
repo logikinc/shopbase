@@ -47,15 +47,13 @@ class ShopbaseController extends Controller
 
     public function Initialize(Request $request)
     {
-        $url = "https://$request->shop/admin/oauth/access_token";
-
         $data = array(
             'client_id' => $this->key,
             'client_secret' => $this->secret,
             'code' => $request->code
             );
 
-        $response = $this->APIRequest('post',$url,$data,'install');
+        $response = $this->APIRequest('post','admin/oauth/access_token',$data,'install');
 
         Session::put('storename',$request->shop);
         Session::put('accessToken',$response->body->access_token);
@@ -85,13 +83,13 @@ class ShopbaseController extends Controller
     {
 
         $storename = Session::get('storename');
-        echo $url = "https://$storename/admin/orders.json";
-        $response = $this->APIRequest('get',$url);
+        $response = $this->APIRequest('get','admin/orders.json');
         dd($response);
     }
 
     public function APIRequest($requestType,$requestUrl,$requestData='',$requestHeader='')
     {
+        $requestUrl = $this->GenerateUrl($requestUrl);
         $requestHeader = $header = $this->HeaderSelector($requestHeader);
         $requestOptions = Unirest::verifyPeer(false);
 
@@ -105,7 +103,7 @@ class ShopbaseController extends Controller
             $response = Unirest::delete($requestUrl,$requestHeader,$requestData);
         }
 
-        return $response;
+        return $response->body;
     }
 
     public function HeaderSelector($criteria)
@@ -116,9 +114,16 @@ class ShopbaseController extends Controller
             );
         } else {
             return array(
+                'Accept' => 'application/json',
                 'X-Shopify-Access-Token' => Session::get('accessToken')
             );
         }
+    }
+
+    public function GenerateUrl($endpoint)
+    {
+        $url = 'https://'.Session::get('storename').'/'.$endpoint;
+        return $url;
     }
 
 }
