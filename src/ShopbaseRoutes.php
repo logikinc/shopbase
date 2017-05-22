@@ -1,8 +1,12 @@
 <?php
 
-Route::get('/shopbase/install','Anurag\Controllers\ShopbaseController@Index');
-Route::post('/shopbase/install','Anurag\Controllers\ShopbaseController@Install');
+Route::group(['middleware' => 'web'], function () {
 
-Route::get('/shopbase/app','Anurag\Controllers\ShopbaseController@FetchDetails');
-Route::get('/shopbase/initialize','Anurag\Controllers\ShopbaseController@Initialize');
-Route::get('/shopbase/dashboard','Anurag\Controllers\ShopbaseController@Dashboard');
+    Route::get('/','Anurag\Controllers\ShopbaseController@Index');
+    Route::post('/','Anurag\Controllers\ShopbaseController@Install');
+
+    Route::get('/app','Anurag\Controllers\ShopbaseController@FetchDetails');
+    Route::get('/initialize','Anurag\Controllers\ShopbaseController@Initialize');
+    Route::get('/dashboard','Anurag\Controllers\ShopbaseController@Dashboard');
+
+});
