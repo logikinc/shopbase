@@ -37,7 +37,7 @@ class ShopbaseServiceProvider extends ServiceProvider
         ],'assets');
 
         $this->publishes([
-            __DIR__.'/views' => resource_path('/'),
+            __DIR__.'/views' => resource_path('/views'),
         ],'views');
     }
 }
