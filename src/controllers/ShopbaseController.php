@@ -47,13 +47,19 @@ class ShopbaseController extends Controller
 
     public function Initialize(Request $request)
     {
+        $url = 'https://'.$request->shop.'/admin/oauth/access_token';
+
+        $header = array(
+                'Accept' => 'application/json',
+            );
+
         $data = array(
             'client_id' => $this->key,
             'client_secret' => $this->secret,
             'code' => $request->code
             );
 
-        $response = $this->APIRequest('post','admin/oauth/access_token',$data,'install');
+        $response = Unirest::post($url,$header,$data);
 
         Session::put('storename',$request->shop);
         Session::put('accessToken',$response->body->access_token);
@@ -87,10 +93,13 @@ class ShopbaseController extends Controller
         dd($response);
     }
 
-    public function APIRequest($requestType,$requestUrl,$requestData='',$requestHeader='')
+    public function APIRequest($requestType,$requestUrl,$requestData='')
     {
         $requestUrl = $this->GenerateUrl($requestUrl);
-        $requestHeader = $header = $this->HeaderSelector($requestHeader);
+        $requestHeader = array(
+                'Accept' => 'application/json',
+                'X-Shopify-Access-Token' => Session::get('accessToken')
+            );
         $requestOptions = Unirest::verifyPeer(false);
 
         if($requestType == 'get'){
@@ -104,20 +113,6 @@ class ShopbaseController extends Controller
         }
 
         return $response->body;
-    }
-
-    public function HeaderSelector($criteria)
-    {
-        if($criteria == 'install'){
-            return array(
-                'Accept' => 'application/json'
-            );
-        } else {
-            return array(
-                'Accept' => 'application/json',
-                'X-Shopify-Access-Token' => Session::get('accessToken')
-            );
-        }
     }
 
     public function GenerateUrl($endpoint)
