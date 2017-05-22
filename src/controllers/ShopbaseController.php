@@ -30,7 +30,7 @@ class ShopbaseController extends Controller
 
     public function Index()
     {
-        return view('Shopbase::Index');
+        return view('Shopbase::index');
     }
 
     public function Install(Request $request)
