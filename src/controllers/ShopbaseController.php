@@ -19,8 +19,6 @@ class ShopbaseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('web');
-
         $config = (object) Config::get('shopbase');
         $this->key = $config->key;
         $this->secret = $config->secret;
@@ -72,7 +70,7 @@ class ShopbaseController extends Controller
             $store->save();
         }
 
-        return redirect('`/dashboard');
+        return redirect('/dashboard');
     }
 
     public function FetchDetails(Request $request)
