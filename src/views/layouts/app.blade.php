@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('shopbase/css/app.css') }}">
     <script src="{{ asset('shopbase/js/app.js') }}"></script>
-    <title>Shopbase</title>
+    <title>@yield('title')</title>
 </head>
 <body>
 

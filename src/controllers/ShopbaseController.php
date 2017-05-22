@@ -28,7 +28,7 @@ class ShopbaseController extends Controller
 
     public function Index()
     {
-        return view('Shopbase::index');
+        return view('welcome');
     }
 
     public function Install(Request $request)
@@ -85,10 +85,7 @@ class ShopbaseController extends Controller
 
     public function Dashboard(Request $request)
     {
-
-        $storename = Session::get('storename');
-        $response = $this->APIRequest('get','admin/orders.json');
-        dd($response);
+        return view('dashboard');
     }
 
     public function APIRequest($requestType,$requestUrl,$requestData='')

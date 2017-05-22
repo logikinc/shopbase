@@ -1,5 +1,7 @@
 @extends('Shopbase::layouts.app')
 
+@section('title', 'Shopbase Installer')
+
 @section('content')
 
 <div class="col-sm-offset-3 col-sm-6">
