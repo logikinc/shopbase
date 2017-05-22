@@ -72,7 +72,7 @@ class ShopbaseController extends Controller
             $store->save();
         }
 
-        return redirect('/shopbase/dashboard');
+        return redirect('`/dashboard');
     }
 
     public function FetchDetails(Request $request)
@@ -82,7 +82,7 @@ class ShopbaseController extends Controller
         Session::put('storename',$store->storename);
         Session::put('accessToken',$store->accessToken);
 
-        return redirect('/shopbase/dashboard');
+        return redirect('/dashboard');
     }
 
     public function Dashboard(Request $request)
