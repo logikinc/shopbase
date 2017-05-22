@@ -1,4 +1,4 @@
-@extends('Shopbase::layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Shopbase Installer')
 
